@@ -23,7 +23,12 @@ public:
 		red_plastic = 7,
 		gold = 8,
 		bright_white = 9,
-		bright_green = 10
+		bright_green = 10,
+		cyan_glow = 11,
+		amber_glow = 12,
+		metallic_blue = 13,
+		titanium = 14,
+		crimson_hull = 15
 	};
 
 	Material() = default;
@@ -129,6 +134,52 @@ public:
 			material_diffuse = vec4(0, 1, 0, 1.0);
 			material_specular = vec4(0, 1, 0, 1.0);
 			material_shininess = 1000;
+			break;
+		case Material::cyan_glow:
+			light_ambient = vec4(1, 1, 1, 1.0);
+			light_diffuse = vec4(1.0, 1.0, 1.0, 1.0);
+			light_specular = vec4(1.0, 1.0, 1.0, 1.0);
+			material_ambient = vec4(0.2, 0.7, 0.95, 1.0);
+			material_diffuse = vec4(0.3, 0.85, 1.0, 1.0);
+			material_specular = vec4(1.0, 1.0, 1.0, 1.0);
+			material_shininess = 64;
+			break;
+		case Material::amber_glow:
+			light_ambient = vec4(1, 1, 1, 1.0);
+			light_diffuse = vec4(1.0, 1.0, 1.0, 1.0);
+			light_specular = vec4(1.0, 1.0, 1.0, 1.0);
+			material_ambient = vec4(0.9, 0.55, 0.15, 1.0);
+			material_diffuse = vec4(1.0, 0.65, 0.25, 1.0);
+			material_specular = vec4(1.0, 0.9, 0.7, 1.0);
+			material_shininess = 64;
+			break;
+		case Material::metallic_blue:
+			light_ambient = vec4(1, 1, 1, 1.0);
+			light_diffuse = vec4(1.0, 1.0, 1.0, 1.0);
+			light_specular = vec4(1.0, 1.0, 1.0, 1.0);
+			material_ambient = vec4(0.06, 0.12, 0.26, 1.0);
+			material_diffuse = vec4(0.18, 0.42, 0.85, 1.0);
+			material_specular = vec4(0.65, 0.82, 1.0, 1.0);
+			material_shininess = 90;
+			break;
+		case Material::titanium:
+			light_ambient = vec4(1, 1, 1, 1.0);
+			light_diffuse = vec4(1.0, 1.0, 1.0, 1.0);
+			light_specular = vec4(1.0, 1.0, 1.0, 1.0);
+			material_ambient = vec4(0.18, 0.20, 0.24, 1.0);
+			material_diffuse = vec4(0.42, 0.46, 0.52, 1.0);
+			material_specular = vec4(0.80, 0.84, 0.90, 1.0);
+			material_shininess = 100;
+			break;
+		case Material::crimson_hull:
+			light_ambient = vec4(1, 1, 1, 1.0);
+			light_diffuse = vec4(1.0, 1.0, 1.0, 1.0);
+			light_specular = vec4(1.0, 1.0, 1.0, 1.0);
+			material_ambient = vec4(0.22, 0.04, 0.06, 1.0);
+			material_diffuse = vec4(0.72, 0.14, 0.16, 1.0);
+			material_specular = vec4(0.85, 0.60, 0.65, 1.0);
+			material_shininess = 80;
+			break;
 		}
 	}
 };

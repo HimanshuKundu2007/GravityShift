@@ -287,7 +287,9 @@ GLfloat length( const vec3& v ) {
 
 inline
 vec3 normalize( const vec3& v ) {
-    return v / length(v);
+    GLfloat len = length(v);
+    if (len < 1e-6f) return vec3(0.0f, 0.0f, 0.0f);
+    return v / len;
 }
 
 inline
@@ -432,7 +434,7 @@ struct vec4 {
 
 inline
 GLfloat dot( const vec4& u, const vec4& v ) {
-    return u.x*v.x + u.y*v.y + u.z*v.z + u.w+v.w;
+    return u.x*v.x + u.y*v.y + u.z*v.z + u.w*v.w;
 }
 
 inline
@@ -442,7 +444,9 @@ GLfloat length( const vec4& v ) {
 
 inline
 vec4 normalize( const vec4& v ) {
-    return v / length(v);
+    GLfloat len = length(v);
+    if (len < 1e-6f) return vec4(0.0f, 0.0f, 0.0f, 0.0f);
+    return v / len;
 }
 
 inline

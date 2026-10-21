@@ -789,20 +789,32 @@ mat4 identity()
 inline
 mat4 LookAt( const vec4& eye, const vec4& at, const vec4& up )
 {
-    vec4 n = normalize(eye - at);
-   // vec4 u = cross(up,n);
-	vec4 u = normalize(vec4(cross(up,n), 0.0));
-    vec4 v = normalize(vec4(cross(n,u), 0.0));
+    vec4 diff = eye - at;
+    diff.w = 0.0f;
+    float lenDiff = std::sqrt(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z);
+    vec4 n = (lenDiff > 1e-4f) ? (diff / lenDiff) : vec4(0.0f, 0.0f, 1.0f, 0.0f);
+
+    vec3 c1 = cross(up, n);
+    float lenU = std::sqrt(c1.x * c1.x + c1.y * c1.y + c1.z * c1.z);
+    vec4 u;
+    if (lenU > 1e-4f) {
+        u = vec4(c1.x / lenU, c1.y / lenU, c1.z / lenU, 0.0f);
+    } else {
+        vec3 altAxis = (std::abs(n.y) < 0.9f) ? vec3(0.0f, 1.0f, 0.0f) : vec3(1.0f, 0.0f, 0.0f);
+        vec3 cAlt = cross(altAxis, vec3(n.x, n.y, n.z));
+        float lenAlt = std::sqrt(cAlt.x * cAlt.x + cAlt.y * cAlt.y + cAlt.z * cAlt.z);
+        u = (lenAlt > 1e-4f) ? vec4(cAlt.x / lenAlt, cAlt.y / lenAlt, cAlt.z / lenAlt, 0.0f) : vec4(1.0f, 0.0f, 0.0f, 0.0f);
+    }
+
+    vec3 c2 = cross(n, u);
+    float lenV = std::sqrt(c2.x * c2.x + c2.y * c2.y + c2.z * c2.z);
+    vec4 v = (lenV > 1e-4f) ? vec4(c2.x / lenV, c2.y / lenV, c2.z / lenV, 0.0f) : vec4(0.0f, 1.0f, 0.0f, 0.0f);
+
     vec4 t = vec4(0.0, 0.0, 0.0, 1.0);
     mat4 c = mat4(u, v, n, t);
-	//std::cout <<"Rt" << c << "\n";
-	mat4 d = Translate(-eye);
-	//std::cout << d << "\n";
-	mat4 r = c * d;
-	printm(r);
-	return r;
-   // return c * d;
-   // return c * Translate( -eye );
+    mat4 d = Translate(-eye);
+    mat4 r = c * d;
+    return r;
 }
 
 }  // namespace Angel

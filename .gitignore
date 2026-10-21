@@ -6,6 +6,13 @@
 *.sln.docstates
 
 # Build results
+Debug/
+Release/
+x64/
+x86/
+GravityShift/
+*.user
+.vs/
 
 # Roslyn cache directories
 *.ide/
